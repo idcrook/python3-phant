@@ -169,6 +169,7 @@ setup(
     # package_data={  # Optional
     #     'sample': ['package_data.dat'],
     # },
+    data_files=[('.', ['VERSION'])],
 
     # Although 'package_data' is the preferred approach, in some case you may
     # need to place data files outside of your packages. See:
