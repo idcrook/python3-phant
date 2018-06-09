@@ -9,8 +9,9 @@ Client library for (defunct) Sparkfun Phant
 ## Usage
 
 
-```
-python3 ./bin/
+```python
+from phant3 import VERSION
+from phant3 import Phant
 ```
 
 
@@ -25,8 +26,20 @@ python3 ./bin/
 
 Using a git clone to develop locally:
 
-```
+```shell
 git clone https://github.com/idcrook/python3-phant.git
 cd python3-phant
 pip3 install --user -e .
+
+# check that module loads
+cd bin/
+python3 ./test_phant3.py
+```
+
+
+## Documentation
+
+
+```shell
+pydoc3 phant3.Phant
 ```
