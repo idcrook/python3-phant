@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
-"""A python-based shairport-sync metadata parser/processor."""
+"""Client for Sparkfun Phant."""
 
 __author__ = 'David Crook'
 __copyright__ = 'Copyright 2018'
-__credits__ = 'shairport-sync'
+__credits__ = ['phant', 'python-phant']
 __license__ = 'MIT'
 __maintainer__ = 'David Crook'
 __email__ = 'idcrook@users.noreply.github.com'
+__status__ = "Development"
 
 import logging
 from os import path
