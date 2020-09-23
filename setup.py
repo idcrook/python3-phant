@@ -8,26 +8,29 @@ https://github.com/pypa/sampleproject
 DISTUTILS_DEBUG=1 python3 setup.py check --help
 """
 
-# Always prefer setuptools over distutils
-from setuptools import setup, find_packages
-# To use a consistent encoding
-from codecs import open
-from os import path
+import setuptools
 
-here = path.abspath(path.dirname(__file__))
+import codecs
+import os.path
 
-# Get the long description from the README file
-with open(path.join(here, 'README.md'), encoding='utf-8') as f:
-    long_description = f.read()
+def read(rel_path):
+    here = os.path.abspath(os.path.dirname(__file__))
+    with codecs.open(os.path.join(here, rel_path), 'r') as fp:
+        return fp.read()
 
-# Adapted from https://packaging.python.org/guides/single-sourcing-package-version/
-with open(path.join(here, 'VERSION')) as version_file:
-    version = version_file.read().strip()
+
+def get_version(rel_path):
+    for line in read(rel_path).splitlines():
+        if line.startswith('__version__'):
+            delim = '"' if '"' in line else "'"
+            return line.split(delim)[1]
+    else:
+        raise RuntimeError("Unable to find version string.")
 
 # Arguments marked as "Required" below must be included for upload to PyPI.
 # Fields marked as "Optional" may be commented out.
 
-setup(
+setuptools.setup(
     # This is the name of your project. The first time you publish this
     # package, this name will be registered for you. It will determine how
     # users can install this project, e.g.:
@@ -48,7 +51,7 @@ setup(
     # For a discussion on single-sourcing the version across setup.py and the
     # project code, see
     # https://packaging.python.org/en/latest/single_source_version.html
-    version=version,  # Required
+    version=get_version("phant3/__init__.py"),  # Required
 
     # This is a one-line description or tagline of what your project does. This
     # corresponds to the "Summary" metadata field:
@@ -64,7 +67,7 @@ setup(
     #
     # This field corresponds to the "Description" metadata field:
     # https://packaging.python.org/specifications/core-metadata/#description-optional
-    long_description=long_description,  # Optional
+    long_description=read("README.md"),  # Optional
 
     # Denotes that our long_description is in Markdown; valid values are
     # text/plain, text/x-rst, and text/markdown
@@ -135,7 +138,7 @@ setup(
     #
     #   py_modules=["my_module"],
     #
-    packages=find_packages(exclude=['contrib', 'docs', 'tests']),  # Required
+    packages=setuptools.find_packages(exclude=['contrib', 'docs', 'tests']),  # Required
 
     #
     # scripts=['bin/stowe-towels.py','bin/wash-towels.py'],
@@ -169,7 +172,7 @@ setup(
     # package_data={  # Optional
     #     'sample': ['package_data.dat'],
     # },
-    data_files=[('.', ['VERSION'])],
+    # data_files=[('.', ['VERSION'])],
 
     # Although 'package_data' is the preferred approach, in some case you may
     # need to place data files outside of your packages. See:

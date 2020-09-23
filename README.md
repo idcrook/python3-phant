@@ -9,7 +9,6 @@ Client library for (defunct) Sparkfun Phant
 
 
 ```python
-from phant3 import VERSION
 from phant3 import Phant
 ```
 
@@ -63,12 +62,7 @@ python3 ./test_phant3.py
 pip3 uninstall phant3
 ```
 
-
-
-
-
 ## CREDITS
-
 
 #### Client code
 

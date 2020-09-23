@@ -10,7 +10,8 @@ import shutil
 import sys
 import tempfile
 
-from phant3 import VERSION
+import phant3
+VERSION = phant3.__version__
 
 # Configure tempfile dir
 name = os.path.basename(__file__)
