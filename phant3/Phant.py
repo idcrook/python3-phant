@@ -115,7 +115,7 @@ class Phant(object):
         self._check_private_key("log data")
         response = self._post(
             self.inputUrl(),
-            params={'private_key': self.privateKey},
+            headers = {'Phant-Private-Key': self.privateKey},
             check=False)
         return [
             x.strip() for x in response.json()['message'].split('expecting:')[
@@ -133,8 +133,8 @@ class Phant(object):
             if not response.ok:
                 raise ValueError(response.text)
 
-    def _post(self, url, params={}, check=True):
-        response = self._session.post(url, params=params)
+    def _post(self, url, params={}, headers={}, check=True):
+        response = self._session.post(url, params=params, headers=headers)
         if check:
             self._check_response(response)
         return response
@@ -157,11 +157,13 @@ class Phant(object):
         created with a *private_key*.
         """
         self._check_private_key("log data")
-        params = {'private_key': self.privateKey}
+        # send using HTTP header instead of in URL query string
+        headers = {'Phant-Private-Key': self.privateKey}
+        params = {}
         params.update(
             dict((k, self._encoder.serialize(v))
                  for k, v in zip(self.fields, args)))
-        response = self._post(self.inputUrl(), params=params)
+        response = self._post(self.inputUrl(), params=params, headers=headers)
 
         self._last_headers = response.headers
         self._stats = None
